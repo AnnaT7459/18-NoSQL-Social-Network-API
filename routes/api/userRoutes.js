@@ -5,7 +5,7 @@ const {
   createUser,
   updateUser,
   removeUser,
-  removeThoughts,
+  // removeThoughts,
   addFriend,
   removeFriend,
 } = require('../../controllers/userController');
@@ -15,7 +15,8 @@ router.route('/').get(getUsers).post(createUser);
 
 // /api/users/:userId
 // bonus included to removing a user's asscoiated thoughts when deleted- need to test
-router.route('/:userId').get(getSingleUser).put(updateUser).delete(removeUser).deleteMany(removeThoughts);
+router.route('/:userId').get(getSingleUser).put(updateUser).delete(removeUser)
+// .deleteMany(removeThoughts);
 
 // /api/users/:userId/friends/:friendId
 router.route('/:userId/friends/:friendId').post(addFriend).delete(removeFriend);
