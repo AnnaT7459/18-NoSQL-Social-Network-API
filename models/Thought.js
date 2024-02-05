@@ -36,8 +36,8 @@ const thoughtSchema = new Schema({
         default: Date.now(),
         // getter method to format the timestamp on query?
         // get: date => timeSince(date),
-        get: (date) => {
-            if (date) return date.toISOString().split('T')[0];
+        get: function (date) {
+            return date ? new Date(date).toISOString().split('T')[0] : null;
         }
     },
     username: {
@@ -55,7 +55,7 @@ const thoughtSchema = new Schema({
 
 // virtual property that retrieves the amount of reactions per thought 
 thoughtSchema.virtual('reactionCount').get(function () {
-    return this.reaction.length;
+    return this.reactions.length;
 });
 
 const Thought = model('Thought', thoughtSchema);
