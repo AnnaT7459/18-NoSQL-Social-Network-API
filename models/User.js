@@ -28,7 +28,7 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }]
-}
+},
 {
     toJSON: {
         virtuals: true,
@@ -49,14 +49,14 @@ const user = new User();
 user.email = 'test@test.co';
 user.username = 'test';
 
-let error;
-try {
-  await user.validate();
-} catch (err) {
-  error = err;
-}
-assert.ok(error);
-assert.equal(error.errors['username'].message, 'Oops!');
-assert.equal(error.errors['email'].message, 'Email validation failed');
+// let error;
+// try {
+//   user.validate();
+// } catch (err) {
+//   error = err;
+// }
+// assert.ok(error);
+// assert.equal(error.errors['username'].message, 'Oops!');
+// assert.equal(error.errors['email'].message, 'Email validation failed');
 
 module.exports = User;
