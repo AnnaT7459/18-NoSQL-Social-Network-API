@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 // email validation - used from module 17 challenge
 const emailRegex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+
 // schema to create user model
 const userSchema = new Schema({
     username: {
@@ -21,12 +22,18 @@ const userSchema = new Schema({
     },
     thoughts: [{
         type: Schema.Types.ObjectId,
-        ref: 'Thoughts'
+        ref: 'Thought'
     }],
     friends: [{
         type: Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'User'
     }]
+}
+{
+    toJSON: {
+        virtuals: true,
+    },
+    id:false,
 })
 
 // virtual property that gets the amount of friends per user
