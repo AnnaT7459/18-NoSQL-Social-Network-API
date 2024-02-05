@@ -2,34 +2,46 @@ const connection = require('../config/connection');
 const { Thought, User } = require('../models');
 const { userData, thoughtData, reactionData } = require('./data');
 
-console.log(userData());
-connection.on('error', (err) => err);
+async function seedData() {
+  try {
+    // Drop collections if they exist
+    await Thought.collection.drop();
+    await User.collection.drop();
 
-connection.once('open', async () => {
-  // Delete the collections if they exist
-  let thoughtCheck = await connection.db.listCollections({ name: 'thoughts' }).toArray();
-  if (thoughtCheck.length) {
-    await connection.dropCollection('thoughts');
+    // Seed users
+    const users = await User.insertMany(userData);
+
+    // Update thoughtData with user references
+    const userThoughts = thoughtData.map((thought) => {
+      const user = users.find((user) => user.username === thought.username);
+      thought.userId = user._id;
+      return thought;
+    });
+
+    // Seed thoughts
+    const thoughts = await Thought.insertMany(userThoughts);
+
+    // Seed reactions
+    const thoughtReactions = reactionData.map((reaction) => {
+      const thought = thoughts.find((thought) => thought.username === reaction.username);
+      reaction.thoughtId = thought._id;
+      return reaction;
+    });
+
+    await Thought.updateMany({}, { $push: { reactions: { $each: thoughtReactions } } });
+
+    console.info('Seeding complete! 🌱');
+  } catch (error) {
+    console.error('Error seeding database:', error);
+  } finally {
+    // Close the connection
+    connection.close();
   }
+}
 
-  let userCheck = await connection.db.listCollections({ name: 'users' }).toArray();
-  if (userCheck.length) {
-    await connection.dropCollection('users');
-  }
-
-  const users = [];
-
-  for (let i = 0; i < thoughtData.length; i++) {
-    const thought = thoughtData[i];
-    const user = userData.find((user) => {
-    user.username === thoughtCheck.username
-})
-
-users.thoughts.push(thought);
-await user.save();
-
+// Call the seeding function
+seedData();
 
   console.info('Seeding complete! 🌱');
   process.exit(0);
-}});
 

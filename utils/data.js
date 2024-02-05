@@ -61,7 +61,7 @@ const userData = [
   function seedThoughts() {
     reactionData.forEach(reaction => {
       const thought = thoughtData.find(thought => {
-        thought.username === reactionData.username
+        thought.username === reaction.username
       });
   
       if (thought) {
@@ -73,4 +73,4 @@ const userData = [
   seedThoughts();
   
   // Export the functions for use in seed.js
-  module.exports = { userData, thoughtData };
+  module.exports = { userData, thoughtData, reactionData };
