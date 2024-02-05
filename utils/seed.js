@@ -17,21 +17,19 @@ connection.once('open', async () => {
     await connection.dropCollection('users');
   }
 
-//   const users = [];
+  const users = [];
 
-//   for (let i = 0; i < 20; i++) {
-//     const fullName = getRandomName();
-//     const first = fullName.split(' ')[0];
-//     const last = fullName.split(' ')[1];
+  for (let i = 0; i < thoughtData.length; i++) {
+    const thought = thoughtData[i];
+    const user = userData.find((user) => {
+    user.username === thoughtCheck.username
+})
 
-//     users.push({
-//       first,
-//       last,
-//       age: Math.floor(Math.random() * (99 - 18 + 1) + 18),
-//     });
-//   }
+users.thoughts.push(thought);
+await user.save();
 
-  await User.collection.insertMany(users);
-  console.log(users);
+
+  console.info('Seeding complete! 🌱');
   process.exit(0);
-});
+}});
+
