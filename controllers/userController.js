@@ -65,14 +65,6 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // bonus
-  // async removeThoughts(req, res) {
-  //     try {
-  //       res.json();
-  //     } catch (err) {
-  //       res.status(500).json(err);
-  //     }
-  //   },
   // add a friend
   async addFriend(req, res) {
     try {

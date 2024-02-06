@@ -42,21 +42,7 @@ userSchema.virtual('friendCount').get(function () {
 });
 
 // reference: https://mongoosejs.com/docs/validation.html
-// db-
 const User = model('User', userSchema);
-// const user = new User();
 
-// user.email = 'test@test.co';
-// user.username = 'test';
-
-// let error;
-// try {
-//   user.validate();
-// } catch (err) {
-//   error = err;
-// }
-// assert.ok(error);
-// assert.equal(error.errors['username'].message, 'Oops!');
-// assert.equal(error.errors['email'].message, 'Email validation failed');
 
 module.exports = User;

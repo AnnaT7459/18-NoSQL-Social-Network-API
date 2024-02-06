@@ -36,9 +36,8 @@ const thoughtSchema = new Schema({
         type: Date,
         default: Date.now(),
         // getter method to format the timestamp on query?
-        // get: date => timeSince(date),
         get: function (date) {
-            return date ? new Date(date).toISOString().split('T')[0] : null;
+            return date ? new Date(date).toISOString().split(' T ')[0] : null;
         }
     },
     username: {
