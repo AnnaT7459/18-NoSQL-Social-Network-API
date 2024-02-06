@@ -22,11 +22,11 @@ const userSchema = new Schema({
     },
     thoughts: [{
         type: Schema.Types.ObjectId,
-        ref: 'Thought'
+        ref: 'thoughts'
     }],
     friends: [{
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'users'
     }]
 },
 {
@@ -39,15 +39,15 @@ const userSchema = new Schema({
 // virtual property that gets the amount of friends per user
 userSchema.virtual('friendCount').get(function () {
     return this.friends.length;
-})
+});
 
 // reference: https://mongoosejs.com/docs/validation.html
 // db-
 const User = model('User', userSchema);
-const user = new User();
+// const user = new User();
 
-user.email = 'test@test.co';
-user.username = 'test';
+// user.email = 'test@test.co';
+// user.username = 'test';
 
 // let error;
 // try {
